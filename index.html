@@ -8,34 +8,36 @@
     <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.css">
     <style>
         .jumbotron {
-            width: 600px;
-            text-align: center;
-            margin-top: 20px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .table {
-            margin-top: 20px;
-        }
-        .form-control {
-            margin-bottom: 5px;
-        }
-        .selecionado {
-            background-color: yellow;
-        }
-        .negrito{
-            font-weight: bold;
-        }
-        hr {
-            border-color: #999;
-        }
+			width: 600px;
+			text-align: center;
+			margin-top: 20px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		h3 {
+			margin-bottom: 30px;
+		}
+		.table {
+			margin-top: 20px;
+		}
+		.form-control {
+			margin-bottom: 5px;
+		}
+		.selecionado {
+			background-color: yellow;
+		}
+		.negrito {
+			font-weight: bold;
+		}
+		hr {
+			border-color: #999;
+		}
         .img {
             text-align: center;
-           width: 200px;
-           height: 200px;
+            width: 200px;
+            height: 200px;
         }
-        
-       
+               
     </style>
     <script src="./lib/angular/angular.js"></script>
     <script src="./lib/angular/angular-locale_pt-br.js"></script>
@@ -52,19 +54,29 @@
             var carregarContatos = function () {
                 $http.get("http://localhost:3412/contatos").then(function (response) {
                     $scope.contatos = response.data;
-                });
+                }).catch(response => $scope.message = "Aconteceu um problema: " + response.data);
             };
             
             var carregarOperadoras = function () {
                 $http.get("http://localhost:3412/operadoras").then(function (response) {
                     $scope.operadoras = response.data;
-                });
+                }).catch(response => $scope.message = "Aconteceu um problema: " + response.data);
             };
 
             $scope.adicionarContato = function (contato) {
-                $scope.contatos.push(angular.copy(contato));
-                delete $scope.contato
-                $scope.contatoForm.$setPristine();
+               contato.data = new Date();
+               $http.post("http://localhost:3412/contatos", contato).then(function (data) {
+                    delete $scope.contato;
+                    $scope.contatoForm.$setPristine();
+                    /* $scope.contatos.push(data); 
+                        Pode pegar data que voltou, pode ter aí a criação de uma
+                        chave primária ou série de coisas acontencendo no backend
+                    */
+                    carregarContatos();
+                });
+               /*$scope.contatos.push(angular.copy(contato));
+               delete $scope.contato;
+               $scope.contatoForm.$setPristine();*/
             };
             $scope.apagarContatos = function (contatos) {
                 $scope.contatos = contatos.filter(function (contato) {
@@ -95,7 +107,8 @@
             </marquee>
           </marquee>
         <h3>{{app}}</h3>
-        <input class="form-control" style="text-align: center;" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando"/>
+        {{message}}
+        <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?"/>
         <table  ng-show="contatos.length > 0" class="table">
             <tr>
                 <th></th>
