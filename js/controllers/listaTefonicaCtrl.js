@@ -4,13 +4,13 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
     $scope.contatos = [];
     $scope.operadoras = [];
 
-    var carregarContatos = function () {
+    let carregarContatos = function () {
         $http.get("http://localhost:3412/contatos").then(function (response) {
             $scope.contatos = response.data;
         }).catch(response => $scope.message = "Aconteceu um problema: " + response.data);
     };
     
-    var carregarOperadoras = function () {
+    let carregarOperadoras = function () {
         $http.get("http://localhost:3412/operadoras").then(function (response) {
             $scope.operadoras = response.data;
         }).catch(response => $scope.message = "Aconteceu um problema: " + response.data);
@@ -18,7 +18,7 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
 
     $scope.adicionarContato = function (contato) {
        contato.data = new Date();
-       $http.post("http://localhost:3412/contatos", contato).then(function (data) {
+       $http.post("http://localhost:3412/contatos", contato).then(function () {
             delete $scope.contato;
             $scope.contatoForm.$setPristine();
             /* $scope.contatos.push(data); 
