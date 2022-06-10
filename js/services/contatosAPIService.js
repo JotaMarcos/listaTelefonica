@@ -1,11 +1,11 @@
-// Cria um serviço
-angular.module("listaTelefonica").factory("contatosAPI", function ($http) {
+// Cria um serviço com o Factory function - Função Fábrica
+angular.module("listaTelefonica").factory("contatosAPI", function ($http, config) {
     let _getContatos = function () {
-        return $http.get("http://localhost:3412/contatos")
+        return $http.get(config.baseUrl + "/contatos")
     }
 
     let _saveContato = function (contato) {
-        return $http.post("http://localhost:3412/contatos", contato)
+        return $http.post(config.baseUrl + "/contatos", contato)
     }
 
     return {

@@ -1,5 +1,5 @@
 // Localiza um módulo
-angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, $http, contatosAPI) {
+angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, contatosAPI, operadorasAPI, serialGenerator) {
     $scope.app = "Lista Telefônica" 
     $scope.contatos = [];
     $scope.operadoras = [];
@@ -11,12 +11,13 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
     };
     
     let carregarOperadoras = function () {
-        $http.get("http://localhost:3412/operadoras").then(function (response) {
+       operadorasAPI.getOperadoras().then(function (response) {
             $scope.operadoras = response.data;
         }).catch(response => $scope.message = "Aconteceu um problema: " + response.data);
     };
 
     $scope.adicionarContato = function (contato) {
+        contato.serial = serialGenerator.generate();
        contato.data = new Date();
        /* se não passar o parâmetro contato dentro de saveContato o mesmo irá
           adiconar o contato em branco no formulário.  

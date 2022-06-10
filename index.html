@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Lista Telefônica</title>
+    
     <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="./css/app.css">
  
@@ -14,6 +16,10 @@
     <script src="./js/app.js"></script>
     <script src="./js/controllers/listaTefonicaCtrl.js"></script>
     <script src="./js/services/contatosAPIService.js"></script>
+    <script src="./js/services/operadorasAPIService.js"></script>
+    <script src="./js/services/serialGeneratorService.js"></script>
+    <script src="./js/config/serialGeneratorConfig.js"></script>
+    <script src="./js/value/configValue.js"></script>
 </head>
 <body ng-controller="listaTelefonicaCtrl">
     <div class="jumbotron">
@@ -28,6 +34,7 @@
         <table  ng-show="contatos.length > 0" class="table">
             <tr>
                 <th></th>
+                <th>Serial</th>
                 <th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
                 <th><a href="" ng-click="ordenarPor('telefone')">Telefone</a></th>
                 <th><a href="" ng-click="ordenarPor('operadora')">Operadora</a></th>
@@ -37,6 +44,7 @@
             <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | filter: criterioDeBusca  | orderBy: criterioDeOrdenacao: direcaoDaOrdenacao">
             <!--tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | filter: {nome: criterioDeBusca}" ==>> Filtra somente pelo nome -->
                 <td><input type="checkbox" ng-model="contato.selecionado"/></td>
+                <td>{{contato.serial}}</td>
                 <td>{{contato.nome}}</td>
                 <td>{{contato.telefone}}</td>
                 <td>{{contato.operadora.nome | lowercase}}</td>
