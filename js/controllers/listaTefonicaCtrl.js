@@ -1,11 +1,11 @@
 // Localiza um módulo
-angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, $http) {
+angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, $http, contatosAPI) {
     $scope.app = "Lista Telefônica" 
     $scope.contatos = [];
     $scope.operadoras = [];
 
     let carregarContatos = function () {
-        $http.get("http://localhost:3412/contatos").then(function (response) {
+        contatosAPI.getContatos().then(function (response) {
             $scope.contatos = response.data;
         }).catch(response => $scope.message = "Aconteceu um problema: " + response.data);
     };
@@ -18,7 +18,10 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
 
     $scope.adicionarContato = function (contato) {
        contato.data = new Date();
-       $http.post("http://localhost:3412/contatos", contato).then(function () {
+       /* se não passar o parâmetro contato dentro de saveContato o mesmo irá
+          adiconar o contato em branco no formulário.  
+       */
+       contatosAPI.saveContato(contato).then(function () {
             delete $scope.contato;
             $scope.contatoForm.$setPristine();
             /* $scope.contatos.push(data); 
