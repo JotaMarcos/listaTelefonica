@@ -17,11 +17,11 @@ app.use(bodyParser.urlencoded({
 
 
 var contatos = [
-	{nome: "Bruno", telefone: "9999-2222", data: new Date(), operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}},
-	{nome: "Sandra", telefone: "9999-3333", data: new Date(), operadora: {nome: "Vivo", codigo: 15, categoria: "Celular"}},
-	{nome: "Mariana", telefone: "9999-9999", data: new Date(), operadora: {nome: "Tim", codigo: 41, categoria: "Celular"}},
-  {nome: "Pedro", telefone: "9999-8888", data: new Date(), operadora: {nome: "GVT", codigo: 25, categoria: "Fixo"}},
-  {nome: "Clara", telefone: "9999-7777", data: new Date(), operadora: {nome: "Embratel", codigo: 21, categoria: "Fixo"}}
+	{serial: "PZO/W", nome: "Bruno da Silva", telefone: "9999-2222", data: new Date(), operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}},
+	{serial: "G?D%", nome: "Sandra Maria Oliveira", telefone: "9999-3333", data: new Date(), operadora: {nome: "Vivo", codigo: 15, categoria: "Celular"}},
+	{serial: ";(51#", nome: "Mariana Costa", telefone: "9999-9999", data: new Date(), operadora: {nome: "Tim", codigo: 41, categoria: "Celular"}},
+  {serial: "9r!O", nome: "Pedro Machado", telefone: "9999-8888", data: new Date(), operadora: {nome: "GVT", codigo: 25, categoria: "Fixo"}},
+  {serial: "P8$3!", nome: "Clara de Castro", telefone: "9999-7777", data: new Date(), operadora: {nome: "Embratel", codigo: 21, categoria: "Fixo"}}
 ];
 var operadoras = [
 	{nome: "Oi", codigo: 14, categoria: "Celular", preco: 2},
