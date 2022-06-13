@@ -7,7 +7,9 @@
     "dev": "nodemon contatosBackend.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "authors": [
+    "por @João Marcos Aires Duarte <jmarcos_duarte@hotmail.com>"
+  ],
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.0",

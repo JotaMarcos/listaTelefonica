@@ -1,22 +1,19 @@
-// Cria um serviço com o Factory function - Função Fábrica
 angular.module("listaTelefonica").factory("contatosAPI", function ($http, config) {
-    let _getContatos = function () {
-        return $http.get(config.baseUrl + "/contatos")
-    }
+	var _getContatos = function () {
+		return $http.get(config.baseUrl + "/contatos");
+	};
 
-    let _saveContato = function (contato) {
-        return $http.post(config.baseUrl + "/contatos", contato)
-    }
+	var _getContato = function (id) {
+		return $http.get(config.baseUrl + "/contatos/" + id);
+	};
 
-    return {
-        getContatos: _getContatos,
-        saveContato: _saveContato
-    }
-})
+	var _saveContato = function (contato) {
+		return $http.post(config.baseUrl + "/contatos", contato);
+	};
 
-
-
-
-
-
-
+	return {
+		getContatos: _getContatos,
+		getContato: _getContato,
+		saveContato: _saveContato
+	};
+});
