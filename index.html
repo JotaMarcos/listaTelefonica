@@ -1,7 +1,6 @@
-<!DOCTYPE html>
-<html lang="pt-br" ng-app="listaTelefonica">
+<html ng-app="listaTelefonica">
 <head>
-    <meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<title>Lista Telefonica</title>
 	<link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/app.css">
@@ -31,16 +30,16 @@
 	<script src="js/interceptors/loadingInterceptor.js"></script>
 	<script src="js/config/interceptorsConfig.js"></script>
 </head>
-<body ng-controller="listaTelefonicaCtrl">
-    <div class="jumbotron" ng-show="loading">
-        <marquee direction="down" width="250" height="150" behavior="alternate" style="border:solid">
+<body>
+	<div class="jumbotron" ng-show="loading">
+		<marquee direction="down" width="250" height="150" behavior="alternate" style="border:solid">
             <marquee behavior="alternate">
               <img class="img" src="./img/logo-google-256.png" alt="Logo do Google">
             </marquee>
-          </marquee>
-        <h5>Carregando, por favor aguarde...</h5>
-    </div>
-    <div ng-hide="loading">
+        </marquee>
+		<h5>Carregando, por favor aguarde...</h5>
+	</div>
+	<div ng-hide="loading">
 		<div ng-view></div>
 		<div ng-include="'view/footer.html'"></div>
 	</div>

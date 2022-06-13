@@ -1,28 +1,9 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 
-app.use(express.static(__dirname + '/public'));
-app.use(express.json());
-app.use(express.urlencoded({
-  extended: true
-}));
-
-// ------------------------------------
-const bodyParser = require('body-parser');
-
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
 
-
-var contatos = [
-	{serial: "PZO/W", nome: "Bruno da Silva", telefone: "9999-2222", data: new Date(), operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}},
-	{serial: "G?D%", nome: "Sandra Maria Oliveira", telefone: "9999-3333", data: new Date(), operadora: {nome: "Vivo", codigo: 15, categoria: "Celular"}},
-	{serial: ";(51#", nome: "Mariana Costa", telefone: "9999-9999", data: new Date(), operadora: {nome: "Tim", codigo: 41, categoria: "Celular"}},
-  {serial: "9r!O", nome: "Pedro Machado", telefone: "9999-8888", data: new Date(), operadora: {nome: "GVT", codigo: 25, categoria: "Fixo"}},
-  {serial: "P8$3!", nome: "Clara de Castro", telefone: "9999-7777", data: new Date(), operadora: {nome: "Embratel", codigo: 21, categoria: "Fixo"}}
-];
 var operadoras = [
 	{nome: "Oi", codigo: 14, categoria: "Celular", preco: 2},
 	{nome: "Vivo", codigo: 15, categoria: "Celular", preco: 1},
@@ -31,7 +12,12 @@ var operadoras = [
 	{nome: "Embratel", codigo: 21, categoria: "Fixo", preco: 2}
 ];
 
-app.listen(process.env.PORT || 3412);
+var contatos = [
+  {id: 1, nome: "Bruno", telefone: "9999-2222", data: new Date(), operadora: operadoras[0]},
+  {id: 2, nome: "Sandra", telefone: "9999-3333", data: new Date(), operadora: operadoras[1]},
+  {id: 3, nome: "Mariana", telefone: "9999-9999", data: new Date(), operadora: operadoras[2]}
+];
+
 
 app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -44,6 +30,16 @@ app.get('/contatos', function(req, res) {
   res.json(contatos);
 });
 
+app.get('/contatos/:id', function(req, res) {
+  contatos.forEach(function (contato) {
+  	if (contato.id == req.params.id) {
+  		res.json(contato);
+  		return;
+  	}
+  });
+  res.status(404).end();
+});
+
 app.post('/contatos', function(req, res) {
   contatos.push(req.body);
   res.json(true);
@@ -52,3 +48,5 @@ app.post('/contatos', function(req, res) {
 app.get('/operadoras', function(req, res) {
   res.json(operadoras);
 });
+
+app.listen(process.env.PORT || 3412);
